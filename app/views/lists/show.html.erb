@@ -1,23 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+
+    <%= link_to "Watch List", lists_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <li class="nav-item">
+          <%= link_to "New List", new_list_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
+  <h1><%= @list.name %></h1>
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-      <h1><%= @list.name %></h1>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-          <% @list.bookmarks.each do |bookmark| %>
-            <th scope="row">bookmark</th>
-            <td><%= bookmark.movie.title %></td>
-            <td><%= bookmark.movie.rating %></td>
-            <td><%= bookmark.movie.overview %></td>
-            <td><%= bookmark.movie.poster_url %></td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-md-4">
+        <div class="flat-card">
+          <div class="flat-card-image" style="background-image: url('<%= bookmark.movie.poster_url %>')"></div>
+          <div class="flat-card-content">
+            <div class="flat-card-title">
+              <h4><%= bookmark.movie.title %></h4>
+            </div>
+            <div class="flex">
+              <div class="flex">
+                <p><%= bookmark.movie.overview %></p>
+
+              </div>
+              <div class="flex ms-3">
+                <p><%= bookmark.comment %></p>
+                <%= link_to "Remove", bookmark_path(bookmark),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: 'ms-3 text-danger'
+                %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
 
       <%= link_to "See all lists", lists_path %>
       <%= link_to "create a bookmark", new_list_bookmark_path(@list) %>
-    </div>
-  </div>
+
+
 </div>
