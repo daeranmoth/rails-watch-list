@@ -22,7 +22,11 @@
       <ul class="list-group mb-3">
         <% @lists.each do |list| %>
           <li class="list-group-item">
-            <%= link_to list.name, list_path(list) %>
+            <%= link_to list.name, list_path(list) %><%= link_to "Delete", list_path(list),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: 'ms-3 text-danger'
+                %>
           </li>
         <% end %>
       </ul>

@@ -17,9 +17,10 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @bookmark = Bookmark.find(params[:movie_id])
+    @bookmark = Bookmark.find(params[:id])
+    @list = @bookmark.list
     @bookmark.destroy
-    redirect_to lists_path
+    redirect_to list_path(@list)
   end
 
   private
